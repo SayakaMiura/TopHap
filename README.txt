@@ -31,21 +31,21 @@ How to use
 2. Align your SARS-CoV-2 sequences with the NCBI reference sequence
  Place your alignment files in the directory of Alignment. 
 
-3. Add the information of your alignment files in AdditionalData.txt 
+3. Add the information of your alignment files, in AdditionalData.txt 
  As an example, we added two additional alignments, named SA501.fasta and UK501.fasta. Your fasta file name should be listed in the first column and you can add a note in the second column.
 
-4. (optional) List genomic positions that you like to include to construct haplotypes in MinorVariants.txt.
- As an example, we listed positions that were reported among UK sequences with 501 variant.
+4. (optional) List genomic positions that you like to include to construct haplotypes, in MinorVariants.txt.
+ As an example, we listed a few positions in Spike gene.
 
 5. (optional) List genomic positions that you like to exclude to construct haplotypes in Excluded.txt.
  We already listed genomic positions that are excluded in our database, i.e., non-coding regions and ORF7. You can list additional positions in the same file. 
 
 6. (optional) Change parameter setting.
- The default setting is listed below. If you wish to use different setting please edit lines 5-8 in TopHap.py, accordingly.
+ The default setting is listed below. If you wish to use different setting, please edit lines 5-8 in TopHap.py, accordingly.
  vf (variant frequency cutoff): 0.05 (position with >5% frequencies are used)
  hf (haplotype frequency cutoff): 0.05 (haplotypes with >5% frequencies are selected)   
  bootstrap replicates: 100 (100 bootstrap samples are generated)
- hf for bootstrap replicates: 0.05 (for bootstrap sample, haplotypes with >5% frequencies are selected) 
+ hf for bootstrap replicates: 0.02 (for bootstrap sample, haplotypes with >2% frequencies are selected) 
 
 7. Run TopHap.py.
  Python3 TopHap.py 
