@@ -84,7 +84,7 @@ The output files are found in the same directory as TopHap.
 
 ==================
 Reference:
-[1] Marcos A. Caraballo-Ortiz, Sayaka Miura, Sergei L. K. Pond, Qiqing Tao, and Sudhir Kumar. TopHap: Building strain phylogenies using major haplotypes in large genome collections (2021) BioRxiv
+[1] Marcos A. Caraballo-Ortiz, Sayaka Miura, Sergei L. K. Pond, Qiqing Tao, and Sudhir Kumar. TopHap: Building strain phylogenies using major haplotypes in large genome collections (2021) Submitted to Bioinformatics
 
 --------
 Copyright 2021, Authors and Temple University
