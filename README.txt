@@ -18,36 +18,33 @@ Dependencies
 2. R (v3.5.3 and v4.0.3 were tested)
  R package: 
     ape
- Please make sure â€œRscript â€ command is functional.
+ Please make sure “Rscript ” command is functional.
 
 3. MEGA
  Please download the latest version from https://www.megasoftware.net/.
 
 How to use 
 ==================
-1. Unzip Alignment.zip
- Make sure the TopHap main directory has Alignment directory that contains fasta files and text files.
-
-2. Align your SARS-CoV-2 sequences with the NCBI reference sequence
+1. Align your SARS-CoV-2 sequences with the NCBI reference sequence
  Place your alignment files in the directory of Alignment. 
 
-3. Add the information of your alignment files in AdditionalData.txt 
+2. Add the information of your alignment files in AdditionalData.txt 
  As an example, we added two additional alignments, named SA501.fasta and UK501.fasta. Your fasta file name should be listed in the first column and you can add a note in the second column.
 
-4. (optional) List genomic positions that you like to include to construct haplotypes in MinorVariants.txt.
+3. (optional) List genomic positions that you like to include to construct haplotypes in MinorVariants.txt.
  As an example, we listed positions that were reported among UK sequences with 501 variant.
 
-5. (optional) List genomic positions that you like to exclude to construct haplotypes in Excluded.txt.
+4. (optional) List genomic positions that you like to exclude to construct haplotypes in Excluded.txt.
  We already listed genomic positions that are excluded in our database, i.e., non-coding regions and ORF7. You can list additional positions in the same file. 
 
-6. (optional) Change parameter setting.
+5. (optional) Change parameter setting.
  The default setting is listed below. If you wish to use different setting please edit lines 5-8 in TopHap.py, accordingly.
  vf (variant frequency cutoff): 0.05 (position with >5% frequencies are used)
  hf (haplotype frequency cutoff): 0.05 (haplotypes with >5% frequencies are selected)   
  bootstrap replicates: 100 (100 bootstrap samples are generated)
  hf for bootstrap replicates: 0.05 (for bootstrap sample, haplotypes with >5% frequencies are selected) 
 
-7. Run TopHap.py.
+6. Run TopHap.py.
  Python3 TopHap.py 
 
 Output file
@@ -95,4 +92,3 @@ Redistribution and use in source and binary forms, with or without modification,
 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-

@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 Group	In
-=======
-Group	In
->>>>>>> f3cf616 (Initial commit)

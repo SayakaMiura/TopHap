@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 Position	nucleotide	amino acid	gene
-=======
-Position	nucleotide	amino acid	gene
->>>>>>> f3cf616 (Initial commit)
