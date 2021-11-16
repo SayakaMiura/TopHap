@@ -1,11 +1,10 @@
-TopHap_v0.1.1  
+﻿TopHap_v1.1.1  
 (Copyright 2021, Authors and Temple University; see license below)
 
-Updated January 24, 2021
+Updated November 16, 2021
 ==================
 
-The TopHap program has been developed by Sayaka Miura. It is written in Python3.7 for Windows. You are free to download, modify, and expand this code under a permissive license similar to the BSD 2-Clause License (see below). 
-TopHap identifies common haplotypes from alignments of SARS-CoV-2 genome sequences and infer bootstrap-supported phylogenies. Users can expand the phylogeny by providing additional alignments. See Caraballo et al. (ref. 1) for the detail. Sequences sampled from late December 2019 to early October 2020 are already included. So, TopHap will identify common haplotypes in alignments that are provided by users and infer bootstrap-supported phylogenies with the additional haplotypes.  
+TopHap infers bootstrap-supported phylogenies of common haplotypes in the given data. See Caraballo et al. (ref. 1) for the detail. The TopHap program has been developed by Sayaka Miura. It is written in Python3.7 for Windows. You are free to download, modify, and expand this code under a permissive license similar to the BSD 2-Clause License (see below). 
 
 Dependencies
 ==================
@@ -18,37 +17,32 @@ Dependencies
 2. R (v3.5.3 and v4.0.3 were tested)
  R package: 
     ape
- Please make sure “Rscript ” command is functional.
+ Please make sure “Rscript” command is functional.
 
 3. MEGA
  Please download the latest version from https://www.megasoftware.net/.
 
 How to use 
 ==================
-1. Unzip Alignment.zip
- Make sure the main directory has the Alignment folder that contains many sequences files. 
+1. Align all genomes with outgroup sequences.
+
+2. Convert the full alignment into an alignment of haplotypes.
+ When information on sampling location and time of haplotypes is available, please select common variants (positions with desired minor allele frequency threshold (e.g., > 5%) for each spatiotemporal slice of the dataset that is regionally (e.g., continent, country, or city) and/or temporally (e.g., monthly) partitioned. Then, pool all the variant positions and generate an alignment of haplotypes for each spatiotemporal slice. All alignments need to include the same genomic positions with the same order. For each alignment, please use the FASTA format and name it as “*_Hap.fasta,” e.g., slice1_Hap.fasta. Create a new directory and place all the files in that directory. Please do not place unnecessary other FASTA files in this directory. Example datasets can be found in Alignment.
  
-2. Align your SARS-CoV-2 sequences with the NCBI reference sequence
- Place your alignment files in the directory of Alignment. 
+3. Prepare an alignment of haplotypes of outgroup sequences. 
+ Please use the same genomic positions with the same order as the other haplotype alignments prepared above. Please name the file as “OutG.fasta” and place it in the same directory as the other alignments. Example OutG.fasta can be found in Alignment.
 
-3. Add the information of your alignment files, in AdditionalData.txt 
- As an example, we added two additional alignments, named SA501.fasta and UK501.fasta. Your fasta file name should be listed in the first column and you can add a note in the second column.
-
-4. (optional) List genomic positions that you like to include to construct haplotypes, in MinorVariants.txt.
- As an example, we listed a few positions in Spike gene.
-
-5. (optional) List genomic positions that you like to exclude to construct haplotypes in Excluded.txt.
- We already listed genomic positions that are excluded in our database, i.e., non-coding regions and ORF7. You can list additional positions in the same file. 
 
 6. (optional) Change parameter setting.
- The default setting is listed below. If you wish to use different setting, please edit lines 5-8 in TopHap.py, accordingly.
- vf (variant frequency cutoff): 0.05 (position with >5% frequencies are used)
+ The default setting is listed below. If you wish to use different setting, please edit lines 8-10 in TopHap.py, accordingly.
  hf (haplotype frequency cutoff): 0.05 (haplotypes with >5% frequencies are selected)   
  bootstrap replicates: 100 (100 bootstrap samples are generated)
- hf for bootstrap replicates: 0.02 (for bootstrap sample, haplotypes with >2% frequencies are selected) 
+ hf for bootstrap replicates: 0.05 (for bootstrap sample, haplotypes with >5% frequencies are selected) 
 
 7. Run TopHap.py.
- Python3 TopHap.py 
+ python3 TopHap.py –Hap [path to the directory of the haplotype alignments]
+ Example datasets can be found in Alignment. To run,
+ python3 TopHap.py -Hap Alignment
 
 Output file
 ==================
@@ -59,32 +53,11 @@ The output files are found in the same directory as TopHap.
 2. Haplotype alignment (TopHap_prune.fasta)
  It can be used together with a Bootstrap scored phylogeny to infer ancestral states, from which you can find the timing of each mutation. The ancestral reconstruction function in MEGA (https://www.megasoftware.net/) is useful for this purpose. 
 
-3. Summary tables
- 3.1 CommonVarPosLs.txt
- List genomic positions with >5% variant frequencies in subdata. The order of the positions in this table is same as the order in the Haplotype alignment (TopHap_prune.fasta). Also, subdata with >5% frequencies were listed.
- Note for subdata code (sequences with the same sampling month):
- T1: Dec 2019 and Jan 2020
- T2: Feb 2020
- T3: March 2020
- T4: April 2020
- T5: May 2020
- T6: June 2020
- T7: July 2020
- T8: Aug 2020
- T9: Sep and early Oct 2020
+3. Results of each bootstrap replicate dataset are found in Bootstrap directory.
 
- 3.2 TopHap.txt
- For each common haplotype, subdata IDs with >5% frequencies are listed. 
-
- 3.3 TopHap_anno.txt
- For each input sequence, haplotype ID is given. When none of common haplotype was matched, "NA" is given.
-
- 3.4 TopHap_count.txt
- For each common haplotype, the count of sequences is given.
-
-==================
+===================
 Reference:
-[1] Marcos A. Caraballo-Ortiz, Sayaka Miura, Sergei L. K. Pond, Qiqing Tao, and Sudhir Kumar. TopHap: Building strain phylogenies using major haplotypes in large genome collections (2021) Submitted to Bioinformatics
+[1] Marcos A. Caraballo-Ortiz, Sayaka Miura, Sergei L. K. Pond, Qiqing Tao, and Sudhir Kumar. TopHap: TopHap: Rapid inference of key phylogenetic structures from common haplotypes in large genome collections with limited diversity (2021) Submitted to Bioinformatics
 
 --------
 Copyright 2021, Authors and Temple University
