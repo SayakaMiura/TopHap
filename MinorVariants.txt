@@ -1,1 +1,0 @@
-Position	nucleotide	amino acid	gene
