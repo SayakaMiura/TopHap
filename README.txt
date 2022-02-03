@@ -18,7 +18,7 @@ TopHap infers bootstrap-supported phylogenies of common haplotypes in the given 
  R package: 
     ape
     phangorn 
-Please make sure ìRscriptî command is functional.
+Please make sure ‚ÄúRscript‚Äù command is functional.
 
 3. MEGA
  Please download the latest version from https://www.megasoftware.net/.
@@ -64,7 +64,7 @@ python3 vcf_json_parse.py Example.json --reference Wuhan1Gnome.fasta --min_subgr
 
 2. Run TopHap.py.
 The main program that infers bootstrap-supported phylogenies of common haplotypes in the given data.
-python3 TopHap.py [haplotype frequency cutoff] [number of bootstrap replicates] ñHap [path to the directory of the haplotype alignments] 
+python3 TopHap.py [haplotype frequency cutoff] [number of bootstrap replicates] ‚ÄìHap [path to the directory of the haplotype alignments] 
 
  ====options====
 haplotype frequency cutoff: haplotypes with the desired frequency thresholds are selected.   
@@ -82,7 +82,8 @@ the number of bootstrap replicates: The desired number of bootstrap samples are 
  	python3 TopHap.py 0.05 100 -Hap Alignment
  
 3. Run TopHap_Attach.py (optional)
-Attach minor haplotype sequences into a TopHap phylogeny. For a TopHap phylogeny, haplotype of interest will be attachedpython3 TopHap_Attach.py [TopHap alignment] [TopHap tree] [minor haplotype] [path to raxml]
+Attach minor haplotype sequences into a TopHap phylogeny. For a TopHap phylogeny, haplotype of interest will be attached.
+python3 TopHap_Attach.py [TopHap alignment] [TopHap tree] [minor haplotype] [path to raxml]
 
  ====inputs====
  TopHap alignment: A fasta file that contains TopHap haplotypes
