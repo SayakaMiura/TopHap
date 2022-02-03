@@ -5,10 +5,13 @@ import sys
 import time
 
 StartTime='Start time: '+time.strftime("%Y-%m-%d %H:%M")+'\n'
-THCutFre=0.05 #hf
-BooC=100 #bootstrap replicates
-BooFillPer=0.05 #hf for bootstrap replicates
+THCutFre=float(sys.argv[1])#0.05 #hf
+BooC=int(sys.argv[2])#100 #bootstrap replicates
+BooFillPer=THCutFre#0.05 #hf for bootstrap replicates
 Rpath='Rscript'
+OutGfas='Outgroup.fasta'
+PosStart=0
+path = os.path.join(os.path.expanduser('~'), os.getcwd())
 
 if os.path.exists('Bootstrap')==True:
      print ('Please delete Bootstrap directory and try again')
@@ -17,15 +20,19 @@ if os.path.exists('Bootstrap')==True:
 else:
  os.mkdir('Bootstrap')
  if sys.argv.count('-Hap')==1:
-    Fol=sys.argv[sys.argv.index('-Hap')+1]+'\\'
-    FasLs0=glob.glob(Fol+'*_Hap.fasta')
+    Fol=sys.argv[sys.argv.index('-Hap')+1]+os.sep
+    FasLs0=glob.glob(Fol+'*.fasta')
     out='Input\n'
     for Fas in FasLs0:
-       out+=Fas.split('\\')[-1]+'\n'
+       InLs,InSeq=Functions3.ReadFasSeq(Fas)	
+       if Fas!=Fol+'OutG.fasta' and len(InLs)>=500:	
+          out+=Fas.split(os.sep)[-1]+'\n'
     Functions3.GetOut('InputFasList.txt',out)
     FasTaLs=['InputFasList.txt']
-    HapGive='y'	
+    	
+ else: print ('please provide the directory of haplotype alignments')	
 
+				  
  TopHap2Data={}
  for FasLs in FasTaLs:
     print (FasLs)
@@ -33,10 +40,10 @@ else:
     FasLs=open(FasLs,'r').readlines()[1:]
     for i in FasLs:
             print ('making TopHap sequences for the slice',i)	
-            Fas0=i.strip().split('\t')[0]
-            Fas=Fol+Fas0[:-10]+'.fasta'			
+            Fas0=i.strip().split('\t')[0] ####Fix
+            Fas=Fol+Fas0	 ####Fix		
             Seq2Cou={}
-            StLs,St2Seq=Functions3.ReadFasSeq(Fas[:-6]+'_Hap.fasta')
+            StLs,St2Seq=Functions3.ReadFasSeq(Fas)
             Fill=1.0*len(StLs)*THCutFre			
             for i in StLs:
                        Seq2Cou[St2Seq[i]]=Seq2Cou.get(St2Seq[i],0)+1	
@@ -44,8 +51,8 @@ else:
             for Seq in Seq2Cou:
 					 
                   if Seq2Cou[Seq]>=Fill:			
-                       TopHap2Data[Seq]=TopHap2Data.get(Seq,[])+[Fas0]			
-					  
+                       TopHap2Data[Seq]=TopHap2Data.get(Seq,[])+[Fas0]	####Fix	
+
  print ('tophap c',len(TopHap2Data))
  TopID=1
  ID2TopHap={}
@@ -61,12 +68,24 @@ else:
     TopHap2ID[Hap]=ID	
     ID2TopHap[ID]=Hap	
     TopID+=1
- Ols,O2Seq=Functions3.ReadFasSeq(Fol+'OutG.fasta')
+ PosLs0=open(Fol+'Haplotypes.txt','r').readlines()
+ PosLs=[]
+ for i in PosLs0: 
+       if PosStart==0: PosLs.append(int(i)+1)
+       else: PosLs.append(int(i))	
+ Ols,O2Seq=Functions3.ReadFasSeq(OutGfas)
  outG=''
  for O in Ols:
     Seq=O2Seq[O]
-    outG +=O+'\n'+Seq+'\n'
+    Hap=''	
+    for Pos in PosLs:
+      	
+       Hap+=Seq[Pos-1]
+    outG +=O+'\n'+Hap+'\n'
  outF=outG+outF	
+ Functions3.GetOut(Fol+'OutG.fasta',outG)	
+ Ols,O2Seq=Functions3.ReadFasSeq(Fol+'OutG.fasta')
+	
  Functions3.GetOut('TopHap.fasta',outF)
 
         	
@@ -94,5 +113,5 @@ else:
  os.remove('rooted.nwk') 
  os.remove('TopHap.fasta') 
  os.remove('TopHap_allMP.nwk') 
- EndTime='End time: '+time.strftime("%Y-%m-%d %H:%M")+'\n'
- Functions3.GetOut('Time.txt',StartTime+EndTime)	
+EndTime='End time: '+time.strftime("%Y-%m-%d %H:%M")+'\n'
+Functions3.GetOut('Time.txt',StartTime+EndTime)	
