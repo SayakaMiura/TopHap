@@ -66,9 +66,12 @@ python3 vcf_json_parse.py Example.json --reference Wuhan1Gnome.fasta --min_subgr
 The main program that infers bootstrap-supported phylogenies of common haplotypes in the given data.
 python3 TopHap.py [haplotype frequency cutoff] [number of bootstrap replicates] –Hap [path to the directory of the haplotype alignments] 
 
+Please provide Haplotypes.txt that lists the genomic positions (count from position 0) that are used for the haplotype alignment. Haplotypes.txt should be placed in the same directory of the haplotype alignments. An example Haplotypes.txt can be found in the Alignment directory.
+
  ====options====
 haplotype frequency cutoff: haplotypes with the desired frequency thresholds are selected.   
 the number of bootstrap replicates: The desired number of bootstrap samples are generated.
+The data is assumed to be SARS-CoV-2. If other data is used, please provide outgroup sequence in Outgroup.fasta.
 
  ====output files====
  (a) Bootstrap scored phylogenies (TopHap_bootstrap*.nwk)
