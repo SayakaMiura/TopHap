@@ -33,6 +33,10 @@ Given the alignment of all genomes (i.e., aligned with Wuhan1 reference genome s
 
 `python3 vcf_json_parse.py [input full genome alignment] --reference Wuhan1Gnome.fasta --min_subgroup_size 500 --one_based --skip_mismatches --min_freq 0.05 -o [output directory]`
 
+If you have fasta file, you can use the following command to make a json file. In the output json file, the position is counted from 0. The output file is created in the same directory as the input fasta file. 
+
+`python3 Fas2Json.py [input fasta file without outgroup sequence] [Outgroup sequence without sequence ID]`
+
 #### input 
 - full genome alignment
  
